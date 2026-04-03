@@ -3,7 +3,7 @@ name = "stv"
 version = "0.8.0"
 description = "Talk to your TV. Control any smart TV with natural language."
 readme = "README.md"
-license = "FSL-1.1-Apache-2.0"
+license = {text = "FSL-1.1-Apache-2.0"}
 requires-python = ">=3.11"
 authors = [{ name = "Yunsu Kim" }]
 keywords = [
@@ -49,3 +49,4 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/smartest_tv"]
+exclude = ["src/smartest_tv/_engine", "src/smartest_tv/_engine/**"]
