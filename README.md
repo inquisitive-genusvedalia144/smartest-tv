@@ -37,12 +37,6 @@
   <img src="docs/assets/hero.png" alt="The Evolution of TV Control" width="720">
 </p>
 
-<p align="center">
-  <a href="https://github.com/Hybirdss/smartest-tv/releases/download/v0.3.0/KakaoTalk_20260403_051617935.mp4">
-    <img src="docs/assets/demo.gif" alt="smartest-tv demo" width="720">
-  </a>
-</p>
-
 ---
 
 <br>
@@ -335,6 +329,16 @@ stv sub-value youtube --cost 13.99
 </table>
 
 > [**10 more recipes →**](docs/guides/recipes.md)
+
+---
+
+<p align="center">
+  <a href="https://github.com/Hybirdss/smartest-tv/releases/download/v0.3.0/KakaoTalk_20260403_051617935.mp4">
+    <img src="docs/assets/demo.gif" alt="smartest-tv demo" width="720">
+  </a>
+  <br>
+  <sub>▲ Click to watch the full demo</sub>
+</p>
 
 ---
 
