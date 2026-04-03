@@ -33,7 +33,15 @@
 
 <p align="center"><sub>Runs on your local network. No cloud. No API keys. No subscriptions.</sub></p>
 
-<br>
+<p align="center">
+  <img src="docs/assets/hero.png" alt="The Evolution of TV Control" width="720">
+</p>
+
+<p align="center">
+  <a href="https://github.com/Hybirdss/smartest-tv/releases/download/v0.3.0/KakaoTalk_20260403_051617935.mp4">
+    <img src="docs/assets/demo.gif" alt="smartest-tv demo" width="720">
+  </a>
+</p>
 
 ---
 
@@ -407,6 +415,10 @@ Samsung, Roku, and Android TV drivers need real-world testing. If you have one, 
 [Cache Contributions](docs/contributing/cache-contributions.md) · [Driver Development](docs/contributing/driver-development.md)
 
 ---
+
+<p align="center">
+  <img src="docs/assets/mascot.png" alt="smartest-tv mascot" width="256">
+</p>
 
 <p align="center">
   <sub>MIT License · Made with Python · No cloud required</sub>
