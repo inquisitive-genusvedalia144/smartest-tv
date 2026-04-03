@@ -1716,5 +1716,80 @@ def audio_volume_cmd(room, level):
     click.echo(result)
 
 
+# -- License Management ------------------------------------------------------
+
+
+@main.group("license")
+def license_group():
+    """Manage your stv Pro license key."""
+
+
+@license_group.command("set")
+@click.argument("key")
+def license_set(key):
+    """Save your Polar license key for unlimited API resolves.
+
+    Get a key at https://polar.sh/Hybirdss/smartest-tv
+
+    Example:
+        stv license set XXXX-XXXX-XXXX-XXXX
+    """
+    from smartest_tv.config import CONFIG_DIR
+
+    license_file = CONFIG_DIR / "license.key"
+    CONFIG_DIR.mkdir(parents=True, exist_ok=True)
+    license_file.write_text(key.strip())
+    click.echo(f"License key saved. Pro features activated.")
+    click.echo(f"  Stored: {license_file}")
+
+
+@license_group.command("status")
+def license_status():
+    """Check your current license status.
+
+    Example:
+        stv license status
+    """
+    import os
+    from smartest_tv.config import CONFIG_DIR
+
+    # Check env var first, then file
+    key = os.environ.get("STV_LICENSE_KEY", "")
+    source = "env (STV_LICENSE_KEY)"
+
+    if not key:
+        license_file = CONFIG_DIR / "license.key"
+        if license_file.exists():
+            key = license_file.read_text().strip()
+            source = str(license_file)
+
+    if not key:
+        click.echo("No license key found.")
+        click.echo("  Free tier: 100 API resolves/day")
+        click.echo("  Get Pro: https://polar.sh/Hybirdss/smartest-tv")
+        return
+
+    click.echo(f"License key: {key[:8]}...{key[-4:]}")
+    click.echo(f"  Source: {source}")
+    click.echo(f"  Tier: Pro (unlimited resolves)")
+
+
+@license_group.command("remove")
+def license_remove():
+    """Remove your license key.
+
+    Example:
+        stv license remove
+    """
+    from smartest_tv.config import CONFIG_DIR
+
+    license_file = CONFIG_DIR / "license.key"
+    if license_file.exists():
+        license_file.unlink()
+        click.echo("License key removed. Reverted to free tier.")
+    else:
+        click.echo("No license key found.")
+
+
 if __name__ == "__main__":
     main()

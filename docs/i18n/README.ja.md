@@ -1,179 +1,197 @@
-# smartest-tv
+<h1 align="center">
+  <br>
+  📺
+  <br>
+  smartest-tv
+  <br>
+</h1>
 
-[![PyPI](https://img.shields.io/pypi/v/stv)](https://pypi.org/project/stv/)
-[![Downloads](https://img.shields.io/pypi/dm/stv)](https://pypi.org/project/stv/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://python.org)
-[![Tests](https://img.shields.io/badge/tests-169%20passed-brightgreen)](tests/)
-
-[English](../../README.md) | [한국어](README.ko.md) | [中文](README.zh.md) | **日本語** | [Español](README.es.md) | [Deutsch](README.de.md) | [Português](README.pt-br.md) | [Français](README.fr.md)
-
-**テレビに話しかけてください。ちゃんと聞いています。**
-
-| stv なし | stv あり |
-|:--------:|:-------:|
-| スマホで Netflix アプリを開く | `stv play netflix "Dark" s1e1` |
-| 作品を検索する | (自動処理) |
-| シーズンを選ぶ | (自動計算) |
-| エピソードを選ぶ | (ディープリンク) |
-| 再生ボタンをタップ | |
-| **約30秒** | **約3秒** |
+<h4 align="center">あなたのテレビが待ち望んでいた CLI。</h4>
 
 <p align="center">
-  <a href="https://github.com/Hybirdss/smartest-tv/releases/download/v0.3.0/KakaoTalk_20260403_051617935.mp4">
-    <img src="../../docs/assets/demo.gif" alt="smartest-tv demo" width="720">
-  </a>
+  <b>名前で Netflix を再生。URL をキャスト。マルチルーム音楽。AI コンシェルジュ。すべてターミナルから。</b>
 </p>
 
-*音声付き全編動画はこちら*
+<p align="center">
+  <a href="https://pypi.org/project/stv/"><img src="https://img.shields.io/pypi/v/stv?style=flat-square&color=blue" alt="PyPI"></a>
+  <a href="https://pypi.org/project/stv/"><img src="https://img.shields.io/pypi/dm/stv?style=flat-square&color=green" alt="Downloads"></a>
+  <a href="tests/"><img src="https://img.shields.io/badge/tests-211%20passed-brightgreen?style=flat-square" alt="Tests"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-FSL--1.1-blue?style=flat-square" alt="FSL-1.1"></a>
+  <a href="https://python.org"><img src="https://img.shields.io/badge/python-3.11+-3776ab?style=flat-square&logo=python&logoColor=white" alt="Python"></a>
+  <a href="https://modelcontextprotocol.io"><img src="https://img.shields.io/badge/MCP-21%20tools-8A2BE2?style=flat-square" alt="MCP Tools"></a>
+</p>
 
-## クイックスタート
+<p align="center">
+  <a href="../../README.md">English</a> · <a href="README.ko.md">한국어</a> · <a href="README.zh.md">中文</a> · <a href="README.es.md">Español</a> · <a href="README.de.md">Deutsch</a> · <a href="README.pt-br.md">Português</a> · <a href="README.fr.md">Français</a>
+</p>
+
+<br>
+
+<p align="center"><code>pip install stv && stv setup</code></p>
+
+<p align="center"><sub>ローカルネットワーク上で動作。クラウド不要。API キー不要。サブスクリプション不要。</sub></p>
+
+<br>
+
+---
+
+<br>
+
+<table align="center">
+<tr>
+<th>😩 stv なし</th>
+<th>😎 stv あり</th>
+</tr>
+<tr>
+<td>
+
+1. リモコンを手に取る
+2. Netflix アプリを開く
+3. 作品を検索する
+4. シーズンを選ぶ
+5. エピソードを選ぶ
+6. 再生ボタンを押す
+
+**約30秒**
+
+</td>
+<td>
 
 ```bash
-pip install stv
-stv setup          # テレビを自動検出してペアリング、これだけ
+stv play netflix "Dark" s1e1
 ```
 
-## みんなが stv でやっていること
+**約3秒**
 
-### 「このリンクをテレビにキャストして」
+</td>
+</tr>
+</table>
 
-友達が YouTube リンクを送ってきた。貼り付ける。テレビで再生される。
+<br>
 
+---
+
+## ✨ 機能一覧
+
+<table>
+<tr>
+<td width="33%" valign="top">
+
+### 🎬 名前で再生
 ```bash
-stv cast https://youtube.com/watch?v=dQw4w9WgXcQ
-stv cast https://netflix.com/watch/81726716
-stv cast https://open.spotify.com/track/3bbjDFVu9BtFtGD2fZpVfz
+stv play netflix "Dark" s1e1
+stv play youtube "baby shark"
+stv play spotify "chill vibes"
 ```
+名前を言うだけ。stv が ID を見つけ、アプリを開き、再生を始める。
 
-### 「パーティー用の曲をキューに追加して」
+</td>
+<td width="33%" valign="top">
 
-みんなが自分の曲を追加する。テレビが順番に再生する。
+### 🔗 任意の URL をキャスト
+```bash
+stv cast https://youtu.be/dQw4w
+stv cast https://netflix.com/watch/...
+stv cast https://open.spotify.com/...
+```
+友達がリンクを送ってきた。貼り付けるだけ。テレビで再生される。
 
+</td>
+<td width="33%" valign="top">
+
+### 🎵 キューとパーティー
 ```bash
 stv queue add youtube "Gangnam Style"
-stv queue add youtube "Despacito"
-stv queue add spotify "playlist:Friday Night Vibes"
-stv queue play                     # 順番に再生開始
-stv queue skip                     # 次の曲へ
+stv queue add spotify "Blinding Lights"
+stv queue play
 ```
+みんなが選曲を追加。テレビが順番に再生する。
 
-### 「何を見ればいいかわからない」
+</td>
+</tr>
+<tr>
+<td width="33%" valign="top">
 
-30 分 Netflix をスクロールするのをやめよう。トレンドを聞いて。おすすめを受け取ろう。
-
+### 🎭 シーンプリセット
 ```bash
-stv whats-on netflix               # 今のトレンド上位10件
-stv recommend --mood chill         # 視聴履歴に基づくおすすめ
-stv recommend --mood action        # 気分を変えて別のおすすめ
+stv scene movie-night   # 音量20、シネマモード
+stv scene kids          # 音量15、Cocomelon
+stv scene sleep         # 雨音、自動オフ
 ```
+コマンド一つで雰囲気を設定。
 
-### 「映画を見る雰囲気」
+</td>
+<td width="33%" valign="top">
 
-コマンド一つで雰囲気を設定: 音量、通知、コンテンツ。
-
+### 🔊 マルチルーム音楽
 ```bash
-stv scene movie-night              # 音量20、シネマモード
-stv scene kids                     # 音量15、Cocomelon を再生
-stv scene sleep                    # アンビエントサウンド、自動オフ
-stv scene create date-night        # 自分だけのシーンを作成
+stv audio play "lo-fi beats"
+stv audio volume kitchen 30
+stv audio stop
 ```
+画面オフ。音楽はどこでも。<br>**無料の Sonos。**
 
-### すべてのテレビで同時再生
+</td>
+<td width="33%" valign="top">
 
-コマンド一つで、家中のテレビ（リモートの友達の家も）に同時に流せる。
+### 📺 ディスプレイとして使う
+```bash
+stv display message "Dinner!"
+stv display clock
+stv display dashboard "Temp:22°C"
+```
+ダッシュボード、時計、サイネージ。<br>**月額 $0。**
 
+</td>
+</tr>
+<tr>
+<td width="33%" valign="top">
+
+### 📊 視聴インサイト
+```bash
+stv insights
+stv screen-time
+stv sub-value netflix --cost 17.99
+```
+Netflix は月 $18 の価値がある？
+
+</td>
+<td width="33%" valign="top">
+
+### 🌐 シンクパーティー
 ```bash
 stv --all play youtube "lo-fi beats"
-stv --group party play netflix "Wednesday" s1e1
-stv --all off
+stv --group party play netflix "Wed..."
+stv --all off   # おやすみ
 ```
+すべてのテレビ。一斉に。リモートの友達も含めて。
 
-### 「続きから見たい」
+</td>
+<td width="33%" valign="top">
 
-```bash
-stv next                           # 最後のエピソードの続きを再生
-stv next "Breaking Bad"            # 特定の作品の続きを再生
-stv history                        # 視聴履歴を確認
+### 🤖 AI コンシェルジュ
 ```
-
-## stv と過ごす一日
-
-**午前 7 時** -- 目覚ましが鳴る。「トレンドは？」 `stv whats-on youtube` で朝のニュースを確認。テレビが再生される。
-
-**午前 8 時** -- 子どもたちが起きる。`stv scene kids` -- 音量 15、Cocomelon 開始。
-
-**正午** -- 友達から Netflix リンクが届く。`stv cast https://netflix.com/watch/...` -- テレビで即再生。
-
-**午後 6 時 30 分** -- 仕事から帰宅。`stv scene movie-night` -- 音量を下げて、シネマモード。
-
-**午後 7 時** -- 「何を見ようか？」 `stv recommend --mood chill` -- The Queen's Gambit をおすすめ。
-
-**午後 9 時** -- 友達が来る。`stv --group party play netflix "Wednesday" s1e1` -- 全テレビで一斉再生、シンクパーティー開始。
-
-**午後 11 時 30 分** -- 「おやすみ。」 `stv scene sleep` -- アンビエントサウンド、45 分後にテレビがオフ。
-
-<details>
-<summary><b>stv はどうやって HTTP リクエスト 1 回で Netflix のエピソードを見つけるのか？</b></summary>
-
-Netflix はサーバーサイドで `<script>` タグ内に `__typename:"Episode"` メタデータをレンダリングしています。シーズン内のエピソード ID は連続した整数です。タイトルページへの `curl` リクエスト 1 回で、全シーズンのすべてのエピソード ID を抽出できます。Playwright も、ヘッドレスブラウザも、API キーも、ログインも不要です。
-
-結果は 3 段階でキャッシュされます:
-1. **ローカルキャッシュ** -- `~/.config/smartest-tv/cache.json`、即時返却 (~0.1 秒)
-2. **コミュニティキャッシュ** -- GitHub raw CDN 経由のクラウドソーシング ID (40 件以上を事前登録)、サーバーコストなし
-3. **ウェブ検索フォールバック** -- Brave Search で未知のタイトル ID を自動発見
-
-</details>
-
-<details>
-<summary><b>ディープリンク -- stv がテレビと通信する仕組み</b></summary>
-
-各ドライバーがコンテンツ ID をプラットフォーム固有の形式に変換します:
-
-| TV | プロトコル | ディープリンク形式 |
-|----|-----------|-----------------|
-| LG webOS | SSAP WebSocket (:3001) | `contentId` via DIAL / `params.contentTarget` |
-| Samsung Tizen | WebSocket (:8001) | `run_app(id, "DEEP_LINK", meta_tag)` |
-| Android / Fire TV | ADB TCP (:5555) | `am start -d 'netflix://title/{id}'` |
-| Roku | HTTP ECP (:8060) | `POST /launch/{ch}?contentId={id}` |
-
-これらを意識する必要はありません。ドライバーが自動で処理します。
-
-</details>
-
-<details>
-<summary><b>対応プラットフォーム</b></summary>
-
-| プラットフォーム | ドライバー | ステータス |
-|----------------|-----------|----------|
-| LG webOS | [bscpylgtv](https://github.com/chros73/bscpylgtv) | **動作確認済み** |
-| Samsung Tizen | [samsungtvws](https://github.com/xchwarze/samsung-tv-ws-api) | コミュニティ検証中 |
-| Android / Fire TV | [adb-shell](https://github.com/JeffLIrion/adb-shell) | コミュニティ検証中 |
-| Roku | HTTP ECP | コミュニティ検証中 |
-
-</details>
-
-## インストール
-
-```bash
-pip install stv                 # LG（デフォルト）
-pip install "stv[samsung]"      # Samsung Tizen
-pip install "stv[android]"      # Android TV / Fire TV
-pip install "stv[all]"          # すべて
+"Play something chill"
+→ tv_recommend → tv_play
+→ Playing The Queen's Gambit
 ```
+MCP ツール 21 個。一言で十分。
 
-## あらゆるものと連携
+</td>
+</tr>
+</table>
 
-| 連携 | 何が起きるか |
-|------|------------|
-| **Claude Code** | 「Breaking Bad s1e1 かけて」 -- テレビで再生 |
-| **OpenClaw** | Telegram: 「帰ったよ」 -- scene + おすすめ + 再生 |
-| **Home Assistant** | ドアが開く -- テレビがオン -- トレンドが表示される |
-| **Cursor / Codex** | AI がコードを書く合間に、テレビを操作 |
-| **cron / スクリプト** | 午前 7 時: 寝室 TV にニュース。午後 9 時: 子どものテレビをオフ |
-| **すべての MCP クライアント** | stdio または HTTP で 18 個のツールを使用 |
+---
 
-### MCP サーバー
+## 🤖 AI にテレビを操作させる
+
+stv は **MCP サーバー**です。Claude、GPT、Cursor、またはあらゆる MCP クライアントが自然言語でテレビを操作できます。
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+**セットアップ（1行）:**
 
 ```json
 {
@@ -186,49 +204,210 @@ pip install "stv[all]"          # すべて
 }
 ```
 
-リモートアクセス用に HTTP サーバーとして実行:
-
-```bash
-stv serve --port 8910              # http://localhost:8910/sse で SSE
-stv serve --transport streamable-http
-```
-
-### OpenClaw
-
+または [OpenClaw](../../docs/integrations/openclaw.md) 経由:
 ```bash
 clawhub install smartest-tv
 ```
 
-## ドキュメント
+</td>
+<td width="50%" valign="top">
+
+**あとは話しかけるだけ:**
+
+```
+You: "I just got home, set up movie night"
+
+Claude: 🎬 Movie night activated.
+  Volume → 20, cinema mode on.
+  
+  Based on your history:
+  1. The Queen's Gambit (Netflix)
+  2. Ozark (Netflix)
+  3. Squid Game S2 (Netflix)
+
+You: "Play 1, put a clock on kitchen TV"
+
+Claude: ✓ Playing The Queen's Gambit
+         ✓ Clock on kitchen TV
+```
+
+</td>
+</tr>
+</table>
+
+<details>
+<summary><b>全 21 MCP ツール</b></summary>
+<br>
+
+| カテゴリ | ツール | 機能 |
+|----------|------|-------------|
+| **再生** | `tv_play` | 名前で検索して再生 |
+| | `tv_cast` | 任意の URL をキャスト |
+| | `tv_next` | 続きから視聴 |
+| | `tv_launch` | ID でアプリを起動 |
+| | `tv_resolve` | コンテンツ ID のみ取得 |
+| **探す** | `tv_whats_on` | トレンドコンテンツ |
+| | `tv_recommend` | パーソナライズされたおすすめ |
+| **制御** | `tv_power` | オン/オフ |
+| | `tv_volume` | 取得/設定/ステップ/ミュート |
+| | `tv_screen` | 画面オン/オフ |
+| | `tv_notify` | トースト通知 |
+| | `tv_status` | 現在の状態 |
+| **整理** | `tv_queue` | 再生キュー |
+| | `tv_scene` | シーンプリセット |
+| | `tv_history` | 視聴履歴 |
+| **インサイト** | `tv_insights` | 視聴統計 |
+| | `tv_display` | ディスプレイとして使用 |
+| | `tv_audio` | マルチルーム音楽 |
+| **マルチ TV** | `tv_sync` | 全テレビで再生 |
+| | `tv_list_tvs` | テレビの一覧 |
+| | `tv_groups` | TV グループ |
+
+</details>
+
+---
+
+## 📅 stv と過ごす一日
+
+| 時間 | 出来事 |
+|------|-------------|
+| **午前7時** | キッチン TV に `stv display dashboard "Weather:18°C" "Meeting:10am"` |
+| **午前8時** | `stv scene kids --tv kids-room` -- Cocomelon、音量 15 |
+| **正午** | 友達が Netflix リンクを送ってくる → `stv cast <url>` |
+| **午後5時** | `stv screen-time` → 子どもは今日 2 時間 15 分視聴 |
+| **午後6時30分** | `stv scene movie-night` -- 音量 20、シネマモード |
+| **午後7時** | `stv recommend --mood chill` → Ozark をおすすめ |
+| **午後9時** | `stv audio play "friday vibes" -p spotify` -- 音楽どこでも |
+| **午後10時** | `stv --group party play netflix "Wednesday" s1e1` -- シンク |
+| **午後11時30分** | `stv scene sleep` → `stv --all off` -- おやすみ |
+
+---
+
+## 🔥 最強コンボ
+
+<table>
+<tr>
+<td width="33%" valign="top">
+
+**🌙 就寝オートパイロット**
+```bash
+stv audio play "rain" --rooms bedroom
+stv scene sleep
+stv --all off
+```
+アンビエントサウンド、画面オフ、自動タイマー、他のテレビもすべてオフ。
+
+</td>
+<td width="33%" valign="top">
+
+**🎧 無料の Sonos**
+```bash
+stv audio play "lo-fi beats"
+stv audio volume kitchen 40
+stv audio volume bedroom 15
+```
+すべてのテレビがスピーカーに。部屋ごとに音量調整。画面オフ。
+
+</td>
+<td width="33%" valign="top">
+
+**💰 サブスク診断**
+```bash
+stv sub-value netflix --cost 17.99
+# → $8.50/hr — consider canceling
+
+stv sub-value youtube --cost 13.99
+# → $1.20/hr — good value
+```
+
+</td>
+</tr>
+</table>
+
+> [**レシピをもっと見る（10件）→**](../../docs/guides/recipes.md)
+
+---
+
+## ⚙️ 仕組み
+
+```
+  "Play Dark S1E1"
+        │
+        ▼
+  ┌─── Resolution ───┐
+  │ Cache → API → Web │  content_id
+  │  0.1s   1s    3s  │──────────────▶ 📺 TV plays it
+  └───────────────────┘       │
+                         Deep link via
+                    LG / Samsung / Roku / Android
+```
+
+名前を言うだけ。stv がコンテンツ ID に変換し、テレビのアプリにディープリンクする。ブラウザ自動化なし、API キーなし、クラウド依存なし。結果はキャッシュされるので、繰り返し再生は即時。
+
+---
+
+## 📦 インストール
+
+```bash
+pip install stv                    # LG webOS（デフォルト）
+pip install "stv[samsung]"         # Samsung Tizen
+pip install "stv[android]"         # Android TV / Fire TV
+pip install "stv[all]"             # すべて
+```
+
+```bash
+stv setup                          # TV を自動検出してペアリング
+```
+
+> 対応機種: **LG webOS** · **Samsung Tizen** · **Android TV / Fire TV** · **Roku**
+
+---
+
+## 🔌 連携
+
+| 連携先 | 方法 |
+|------------|-----|
+| **Claude Code / Cursor** | MCP 設定を追加 → `"play Dark s1e1"` |
+| **OpenClaw** | `clawhub install smartest-tv` → Telegram ボット |
+| **Home Assistant** | オートメーションのシェルコマンド |
+| **cron** | `0 7 * * * stv display dashboard ...` |
+| **シェルスクリプト** | `sleep-mode`、`party-mode` のワンライナー |
+| **あらゆる MCP クライアント** | 21 ツール、stdio または HTTP（`stv serve`） |
+
+---
+
+## 📚 ドキュメント
 
 | | |
 |---|---|
-| [はじめに](../../docs/getting-started/installation.md) | すべての TV ブランドの初回セットアップ |
-| [コンテンツの再生](../../docs/guides/playing-content.md) | play, cast, search, queue, resolve |
-| [シーン](../../docs/guides/scenes.md) | プリセット: movie-night, kids, sleep, カスタム |
-| [マルチ TV](../../docs/guides/multi-tv.md) | `--tv` で複数のテレビを操作 |
-| [AI エージェント](../../docs/guides/ai-agents.md) | Claude, Cursor, OpenClaw の MCP 設定 |
-| [おすすめ機能](../../docs/guides/recommendations.md) | AI によるコンテンツ推薦 |
+| [はじめに](../../docs/getting-started/installation.md) | あらゆる TV ブランドのセットアップ |
+| [コンテンツの再生](../../docs/guides/playing-content.md) | play、cast、queue、resolve |
+| [シーン](../../docs/guides/scenes.md) | movie-night、kids、sleep、カスタム |
+| [シンク & パーティー](../../docs/guides/sync-party.md) | マルチ TV、リモート視聴パーティー |
+| [レシピ](../../docs/guides/recipes.md) | **強力な機能コンボ 10 選** |
+| [AI エージェント](../../docs/guides/ai-agents.md) | Claude、Cursor、OpenClaw の MCP |
 | [CLI リファレンス](../../docs/reference/cli.md) | すべてのコマンドとオプション |
-| [MCP ツール](../../docs/reference/mcp-tools.md) | パラメーター付き MCP ツール 18 個の全一覧 |
-| [シンクパーティー](../../docs/guides/sync-party.md) | `--all` / `--group` で複数テレビを同時再生 |
-| [OpenClaw](../../docs/integrations/openclaw.md) | ClawHub スキル + Telegram シナリオ |
+| [MCP ツール](../../docs/reference/mcp-tools.md) | パラメーター付き全 21 ツール |
 
-## コントリビューション
+---
 
-Samsung、Roku、Android TV のドライバーは実機テストが必要です。これらのテレビをお持ちであれば、フィードバックは非常に貴重です。
+## 🤝 コントリビューション
+
+211 テスト。実機の TV は不要。
 
 ```bash
 pip install -e ".[dev]"
-python -m pytest tests/ -v         # 169 テスト、TV 不要
+python -m pytest tests/ -v
 ```
 
-お気に入りの作品をコミュニティキャッシュに追加したいですか？[キャッシュへの貢献](../../docs/contributing/cache-contributions.md)をご覧ください。
+Samsung、Roku、Android TV のドライバーは実機テストが必要です。これらの機器をお持ちであれば、[フィードバックをお寄せください](https://github.com/Hybirdss/smartest-tv/issues)。
 
-新しい TV のドライバーを書きたいですか？[ドライバー開発](../../docs/contributing/driver-development.md)をご覧ください。
+[キャッシュへの貢献](../../docs/contributing/cache-contributions.md) · [ドライバー開発](../../docs/contributing/driver-development.md)
 
-## ライセンス
+---
 
-MIT
+<p align="center">
+  <sub><a href="LICENSE">FSL-1.1-Apache-2.0</a> · 無料で使用可能 · 2028年に Apache 2.0 へ移行 · クラウド不要</sub>
+</p>
 
 <!-- mcp-name: io.github.Hybirdss/smartest-tv -->

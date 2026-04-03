@@ -163,23 +163,54 @@ def resolve(
 
 def _api_resolve(platform: str, query: str, season: int | None = None,
                  episode: int | None = None, title_id: int | None = None) -> str:
-    """Resolve via the hosted API."""
+    """Resolve via the hosted API.
+
+    Sends the Polar license key (STV_LICENSE_KEY) if available.
+    Free tier: 100 resolves/day. Pro: unlimited.
+    """
+    import os
     from smartest_tv.cache import CACHE_API_URL
+    from smartest_tv.http import curl
+    import json
 
-    params = f"platform={platform}&query={query}"
+    body: dict = {"platform": platform, "query": query}
     if season is not None:
-        params += f"&season={season}"
+        body["season"] = season
     if episode is not None:
-        params += f"&episode={episode}"
+        body["episode"] = episode
     if title_id is not None:
-        params += f"&title_id={title_id}"
+        body["title_id"] = title_id
 
-    data = curl_json(f"{CACHE_API_URL}/resolve?{params}", timeout=10)
-    if data and data.get("content_id"):
-        content_id = data["content_id"]
-        slug = _slugify(query)
-        cache.put(platform, slug, content_id)
-        return content_id
+    headers: dict[str, str] = {"Content-Type": "application/json"}
+    license_key = _get_license_key()
+    if license_key:
+        headers["X-License-Key"] = license_key
+
+    r = curl(
+        f"{CACHE_API_URL}/resolve",
+        method="POST",
+        data=json.dumps(body),
+        headers=headers,
+        timeout=10,
+    )
+
+    if r.body:
+        try:
+            data = json.loads(r.body)
+        except (json.JSONDecodeError, ValueError):
+            data = {}
+
+        if data.get("content_id"):
+            content_id = data["content_id"]
+            slug = _slugify(query)
+            cache.put(platform, slug, content_id)
+            return content_id
+
+        if data.get("error") == "rate_limited":
+            raise ValueError(
+                f"Rate limit reached (100/day). "
+                f"Get unlimited: https://polar.sh/Hybirdss/smartest-tv"
+            )
 
     raise ValueError(
         f"Could not resolve {platform}: {query}. "
@@ -199,6 +230,30 @@ def _api_trending(platform: str, limit: int) -> list[dict]:
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
+_license_key_cache: str | None = None
+
+
+def _get_license_key() -> str:
+    """Get the Polar license key from env var or license.key file."""
+    global _license_key_cache
+    if _license_key_cache is not None:
+        return _license_key_cache
+
+    import os
+    key = os.environ.get("STV_LICENSE_KEY", "")
+    if not key:
+        from smartest_tv.config import CONFIG_DIR
+        license_file = CONFIG_DIR / "license.key"
+        if license_file.exists():
+            try:
+                key = license_file.read_text().strip()
+            except OSError:
+                key = ""
+
+    _license_key_cache = key
+    return key
+
 
 def _slugify(text: str) -> str:
     """Normalize text to cache key."""

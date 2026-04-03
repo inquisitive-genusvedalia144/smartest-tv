@@ -1,181 +1,197 @@
-# smartest-tv
+<h1 align="center">
+  <br>
+  📺
+  <br>
+  smartest-tv
+  <br>
+</h1>
 
-[![PyPI](https://img.shields.io/pypi/v/stv)](https://pypi.org/project/stv/)
-[![Downloads](https://img.shields.io/pypi/dm/stv)](https://pypi.org/project/stv/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://python.org)
-[![Tests](https://img.shields.io/badge/tests-169%20passed-brightgreen)](tests/)
-
-[English](../../README.md) | **한국어** | [中文](README.zh.md) | [日本語](README.ja.md) | [Español](README.es.md) | [Deutsch](README.de.md) | [Português](README.pt-br.md) | [Français](README.fr.md)
-
-**TV에 말하세요. 알아듣습니다.**
-
-| stv 없이 | stv 있으면 |
-|:--------:|:---------:|
-| 폰에서 넷플릭스 앱 열기 | `stv play netflix "Dark" s1e1` |
-| 작품 검색 | (자동 처리) |
-| 시즌 선택 | (자동 계산) |
-| 에피소드 선택 | (딥링크 연결) |
-| 재생 탭 | |
-| **~30초** | **~3초** |
+<h4 align="center">당신의 TV가 기다려온 CLI.</h4>
 
 <p align="center">
-  <a href="https://github.com/Hybirdss/smartest-tv/releases/download/v0.3.0/KakaoTalk_20260403_051617935.mp4">
-    <img src="../../docs/assets/demo.gif" alt="smartest-tv demo" width="720">
-  </a>
+  <b>이름으로 넷플릭스 재생. URL 캐스트. 멀티룸 오디오. AI 컨시어지. 전부 터미널에서.</b>
 </p>
 
-*소리와 함께 전체 영상 보기*
+<p align="center">
+  <a href="https://pypi.org/project/stv/"><img src="https://img.shields.io/pypi/v/stv?style=flat-square&color=blue" alt="PyPI"></a>
+  <a href="https://pypi.org/project/stv/"><img src="https://img.shields.io/pypi/dm/stv?style=flat-square&color=green" alt="Downloads"></a>
+  <a href="../../tests/"><img src="https://img.shields.io/badge/tests-211%20passed-brightgreen?style=flat-square" alt="Tests"></a>
+  <a href="../../LICENSE"><img src="https://img.shields.io/badge/license-FSL--1.1-blue?style=flat-square" alt="FSL-1.1"></a>
+  <a href="https://python.org"><img src="https://img.shields.io/badge/python-3.11+-3776ab?style=flat-square&logo=python&logoColor=white" alt="Python"></a>
+  <a href="https://modelcontextprotocol.io"><img src="https://img.shields.io/badge/MCP-21%20tools-8A2BE2?style=flat-square" alt="MCP Tools"></a>
+</p>
 
-## 빠른 시작
+<p align="center">
+  <a href="../../README.md">English</a> · <b>한국어</b> · <a href="README.zh.md">中文</a> · <a href="README.ja.md">日本語</a> · <a href="README.es.md">Español</a> · <a href="README.de.md">Deutsch</a> · <a href="README.pt-br.md">Português</a> · <a href="README.fr.md">Français</a>
+</p>
+
+<br>
+
+<p align="center"><code>pip install stv && stv setup</code></p>
+
+<p align="center"><sub>로컬 네트워크에서 동작합니다. 클라우드 없음. API 키 없음. 구독 없음.</sub></p>
+
+<br>
+
+---
+
+<br>
+
+<table align="center">
+<tr>
+<th>😩 stv 없이</th>
+<th>😎 stv 있으면</th>
+</tr>
+<tr>
+<td>
+
+1. 리모컨 집어들기
+2. 넷플릭스 앱 열기
+3. 작품 검색
+4. 시즌 선택
+5. 에피소드 선택
+6. 재생 누르기
+
+**~30초**
+
+</td>
+<td>
 
 ```bash
-pip install stv
-stv setup          # TV 자동 탐색, 페어링, 완료
+stv play netflix "Dark" s1e1
 ```
 
-## 사람들이 stv로 하는 것들
+**~3초**
 
-### "이 링크를 TV로 캐스트해줘"
+</td>
+</tr>
+</table>
 
-친구가 유튜브 링크를 보냈다. 붙여넣기 한다. TV에서 재생된다.
+<br>
 
+---
+
+## ✨ 무엇을 할 수 있나요
+
+<table>
+<tr>
+<td width="33%" valign="top">
+
+### 🎬 이름으로 재생
 ```bash
-stv cast https://youtube.com/watch?v=dQw4w9WgXcQ
-stv cast https://netflix.com/watch/81726716
-stv cast https://open.spotify.com/track/3bbjDFVu9BtFtGD2fZpVfz
+stv play netflix "Dark" s1e1
+stv play youtube "baby shark"
+stv play spotify "chill vibes"
 ```
+이름만 말하면 됩니다. stv가 ID를 찾고, 앱을 열고, 재생을 시작합니다.
 
-### "파티용 노래 대기열 만들어줘"
+</td>
+<td width="33%" valign="top">
 
-모두가 자기 곡을 추가한다. TV가 순서대로 재생한다.
+### 🔗 URL 캐스트
+```bash
+stv cast https://youtu.be/dQw4w
+stv cast https://netflix.com/watch/...
+stv cast https://open.spotify.com/...
+```
+친구가 링크를 보냈다. 붙여넣기하면 TV에서 재생됩니다.
 
+</td>
+<td width="33%" valign="top">
+
+### 🎵 대기열 & 파티
 ```bash
 stv queue add youtube "Gangnam Style"
-stv queue add youtube "Despacito"
-stv queue add spotify "playlist:Friday Night Vibes"
-stv queue play                     # 순서대로 재생 시작
-stv queue skip                     # 다음 곡
+stv queue add spotify "Blinding Lights"
+stv queue play
 ```
+모두가 자기 곡을 추가합니다. TV가 순서대로 재생합니다.
 
-### "뭐 볼지 모르겠어"
+</td>
+</tr>
+<tr>
+<td width="33%" valign="top">
 
-30분 동안 넷플릭스 스크롤하지 말고. 트렌딩을 물어봐라. 추천을 받아라.
-
+### 🎭 장면 프리셋
 ```bash
-stv whats-on netflix               # 지금 인기 상위 10개
-stv recommend --mood chill         # 시청 기록 기반 추천
-stv recommend --mood action        # 다른 분위기, 다른 추천
+stv scene movie-night   # 볼륨 20, 시네마 모드
+stv scene kids          # 볼륨 15, Cocomelon
+stv scene sleep         # 환경음, 자동 꺼짐
 ```
+명령 하나로 분위기가 완성됩니다.
 
-### "영화 볼 분위기"
+</td>
+<td width="33%" valign="top">
 
-명령 하나로 분위기 세팅: 볼륨, 알림, 콘텐츠.
-
+### 🔊 멀티룸 오디오
 ```bash
-stv scene movie-night              # 볼륨 20, 시네마 모드
-stv scene kids                     # 볼륨 15, Cocomelon 재생
-stv scene sleep                    # 환경음, 자동 꺼짐
-stv scene create date-night        # 나만의 scene 만들기
+stv audio play "lo-fi beats"
+stv audio volume kitchen 30
+stv audio stop
 ```
+화면 꺼짐. 음악은 모든 곳에서.<br>**무료 Sonos.**
 
-### "모든 곳에서 동시 재생"
+</td>
+<td width="33%" valign="top">
 
-CLI 하나로 집 안 모든 TV를 제어한다. 동시 재생도 된다.
-
+### 📺 TV를 디스플레이로
 ```bash
-stv multi list                     # living-room (LG), bedroom (Samsung), friend (remote)
-stv play netflix "The Crown" --tv bedroom
-stv --all play youtube "lo-fi beats"    # 집 안 모든 TV에서 동시 재생
-stv --group party play netflix "Wednesday" s1e1  # 싱크 파티 모드
-stv --all off                      # 모든 TV 꺼짐
+stv display message "저녁 먹어요!"
+stv display clock
+stv display dashboard "Temp:22°C"
 ```
+대시보드, 시계, 안내판.<br>**월 0원.**
 
-### "끊긴 데서 이어서 봐야지"
+</td>
+</tr>
+<tr>
+<td width="33%" valign="top">
 
+### 📊 시청 분석
 ```bash
-stv next                           # 마지막 에피소드부터 이어서
-stv next "Breaking Bad"            # 특정 작품 이어서
-stv history                        # 뭘 봤는지 기록 확인
+stv insights
+stv screen-time
+stv sub-value netflix --cost 17.99
 ```
+넷플릭스가 월 18달러 값어치를 하고 있나요?
 
-## stv와 함께하는 하루
+</td>
+<td width="33%" valign="top">
 
-**오전 7시** -- 알람 울린다. "뭐가 트렌딩이지?" `stv whats-on youtube`로 아침 뉴스 확인. TV가 재생된다.
-
-**오전 8시** -- 아이들이 일어난다. `stv scene kids` -- 볼륨 15, Cocomelon 시작.
-
-**낮 12시** -- 친구가 넷플릭스 링크를 보낸다. `stv cast https://netflix.com/watch/...` -- TV에서 바로 재생.
-
-**오후 6시 30분** -- 퇴근. `stv scene movie-night` -- 볼륨 낮추고, 시네마 모드.
-
-**오후 7시** -- "뭐 볼까?" `stv recommend --mood chill` -- The Queen's Gambit 추천.
-
-**오후 9시** -- 친구들이 온다. `stv --group party play netflix "Wednesday" s1e1`으로 거실과 침실 TV 동기화. 다들 `stv queue add ...` 실행 -- TV가 순서대로 재생.
-
-**오후 11시 30분** -- "잘 자." `stv scene sleep` -- 환경음, 45분 후 TV 꺼짐.
-
-<details>
-<summary><b>stv는 어떻게 HTTP 요청 한 번으로 넷플릭스 에피소드를 찾는가?</b></summary>
-
-Netflix 서버는 `<script>` 태그 안에 `__typename:"Episode"` 메타데이터를 서버 렌더링합니다. 시즌 내 에피소드 ID는 연속된 정수입니다. 타이틀 페이지에 `curl` 요청 한 번으로 모든 시즌의 에피소드 ID를 추출할 수 있습니다. Playwright도, 헤드리스 브라우저도, API 키도, 로그인도 필요 없습니다.
-
-결과는 세 단계로 캐시됩니다:
-1. **로컬 캐시** -- `~/.config/smartest-tv/cache.json`, 즉시 반환 (~0.1초)
-2. **커뮤니티 캐시** -- GitHub raw CDN을 통한 크라우드소싱 ID (40개 이상 사전 등록), 서버 비용 없음
-3. **웹 검색 폴백** -- Brave Search로 알 수 없는 타이틀 ID를 자동 발견
-
-</details>
-
-<details>
-<summary><b>딥링크 -- stv가 TV와 통신하는 방식</b></summary>
-
-각 드라이버가 콘텐츠 ID를 플랫폼 고유 형식으로 변환합니다:
-
-| TV | 프로토콜 | 딥링크 형식 |
-|----|----------|------------|
-| LG webOS | SSAP WebSocket (:3001) | `contentId` via DIAL / `params.contentTarget` |
-| Samsung Tizen | WebSocket (:8001) | `run_app(id, "DEEP_LINK", meta_tag)` |
-| Android / Fire TV | ADB TCP (:5555) | `am start -d 'netflix://title/{id}'` |
-| Roku | HTTP ECP (:8060) | `POST /launch/{ch}?contentId={id}` |
-
-이 모든 것을 직접 신경 쓸 필요가 없습니다. 드라이버가 알아서 처리합니다.
-
-</details>
-
-<details>
-<summary><b>지원 플랫폼</b></summary>
-
-| 플랫폼 | 드라이버 | 상태 |
-|--------|---------|------|
-| LG webOS | [bscpylgtv](https://github.com/chros73/bscpylgtv) | **테스트 완료** |
-| Samsung Tizen | [samsungtvws](https://github.com/xchwarze/samsung-tv-ws-api) | 커뮤니티 테스트 중 |
-| Android / Fire TV | [adb-shell](https://github.com/JeffLIrion/adb-shell) | 커뮤니티 테스트 중 |
-| Roku | HTTP ECP | 커뮤니티 테스트 중 |
-
-</details>
-
-## 설치
-
+### 🌐 동기화 파티
 ```bash
-pip install stv                 # LG (기본)
-pip install "stv[samsung]"      # Samsung Tizen
-pip install "stv[android]"      # Android TV / Fire TV
-pip install "stv[all]"          # 전부 다
+stv --all play youtube "lo-fi beats"
+stv --group party play netflix "Wed..."
+stv --all off   # 잘 자요
 ```
+모든 TV. 동시에. 원격 친구도 함께.
 
-## 모든 것과 연동
+</td>
+<td width="33%" valign="top">
 
-| 연동 | 어떻게 동작하나 |
-|------|--------------|
-| **Claude Code** | "Breaking Bad s1e1 틀어줘" -- TV에서 바로 재생 |
-| **OpenClaw** | 텔레그램: "집에 왔어" -- scene + 추천 + 재생 |
-| **Home Assistant** | 문 열림 -- TV 켜짐 -- 트렌딩 목록 표시 |
-| **Cursor / Codex** | AI가 코드 짜는 동안 쉬면서 TV 제어 |
-| **cron / 스크립트** | 오전 7시: 침실 TV에 뉴스. 오후 9시: 아이 TV 꺼짐 |
-| **모든 MCP 클라이언트** | stdio 또는 HTTP로 18개 도구 사용 |
+### 🤖 AI 컨시어지
+```
+"편안한 거 틀어줘"
+→ tv_recommend → tv_play
+→ Playing The Queen's Gambit
+```
+MCP 도구 21개. 문장 하나면 충분합니다.
 
-### MCP 서버
+</td>
+</tr>
+</table>
+
+---
+
+## 🤖 AI에게 TV를 맡기세요
+
+stv는 **MCP 서버**입니다. Claude, GPT, Cursor 등 MCP 클라이언트라면 자연어로 TV를 제어할 수 있습니다.
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+**설정 (한 줄이면 됩니다):**
 
 ```json
 {
@@ -188,49 +204,210 @@ pip install "stv[all]"          # 전부 다
 }
 ```
 
-원격 접근을 위한 HTTP 서버로 실행:
-
-```bash
-stv serve --port 8910              # http://localhost:8910/sse 로 SSE
-stv serve --transport streamable-http
-```
-
-### OpenClaw
-
+또는 [OpenClaw](../../docs/integrations/openclaw.md)로:
 ```bash
 clawhub install smartest-tv
 ```
 
-## 문서
+</td>
+<td width="50%" valign="top">
+
+**그냥 말하면 됩니다:**
+
+```
+You: "집에 왔어, 영화 볼 준비해줘"
+
+Claude: 🎬 영화 모드 켜졌습니다.
+  볼륨 → 20, 시네마 모드 켜짐.
+  
+  시청 기록 기반 추천:
+  1. The Queen's Gambit (Netflix)
+  2. Ozark (Netflix)
+  3. Squid Game S2 (Netflix)
+
+You: "1번 틀어줘, 주방 TV엔 시계 띄워줘"
+
+Claude: ✓ The Queen's Gambit 재생 중
+         ✓ 주방 TV에 시계 표시됨
+```
+
+</td>
+</tr>
+</table>
+
+<details>
+<summary><b>MCP 도구 21개 전체 목록</b></summary>
+<br>
+
+| 카테고리 | 도구 | 설명 |
+|---------|------|------|
+| **재생** | `tv_play` | 이름으로 검색 후 재생 |
+| | `tv_cast` | URL 캐스트 |
+| | `tv_next` | 이어서 보기 |
+| | `tv_launch` | ID로 앱 실행 |
+| | `tv_resolve` | 콘텐츠 ID만 조회 |
+| **탐색** | `tv_whats_on` | 트렌딩 콘텐츠 |
+| | `tv_recommend` | 개인화 추천 |
+| **제어** | `tv_power` | 켜기/끄기 |
+| | `tv_volume` | 볼륨 조회/설정/단계/음소거 |
+| | `tv_screen` | 화면 켜기/끄기 |
+| | `tv_notify` | 토스트 알림 |
+| | `tv_status` | 현재 상태 |
+| **정리** | `tv_queue` | 재생 대기열 |
+| | `tv_scene` | 장면 프리셋 |
+| | `tv_history` | 시청 기록 |
+| **분석** | `tv_insights` | 시청 통계 |
+| | `tv_display` | TV를 디스플레이로 |
+| | `tv_audio` | 멀티룸 오디오 |
+| **멀티 TV** | `tv_sync` | 모든 TV에서 재생 |
+| | `tv_list_tvs` | TV 목록 |
+| | `tv_groups` | TV 그룹 |
+
+</details>
+
+---
+
+## 📅 stv와 함께하는 하루
+
+| 시간 | 무슨 일이 일어나나 |
+|------|-----------------|
+| **오전 7시** | 주방 TV에 `stv display dashboard "Weather:18°C" "Meeting:10am"` |
+| **오전 8시** | `stv scene kids --tv kids-room` — Cocomelon, 볼륨 15 |
+| **낮 12시** | 친구가 넷플릭스 링크를 보냄 → `stv cast <url>` |
+| **오후 5시** | `stv screen-time` → 오늘 아이가 2시간 15분 시청 |
+| **오후 6시 30분** | `stv scene movie-night` — 볼륨 20, 시네마 모드 |
+| **오후 7시** | `stv recommend --mood chill` → Ozark 추천 |
+| **오후 9시** | `stv audio play "friday vibes" -p spotify` — 모든 곳에서 음악 |
+| **오후 10시** | `stv --group party play netflix "Wednesday" s1e1` — 동기화 |
+| **오후 11시 30분** | `stv scene sleep` → `stv --all off` — 잘 자요 |
+
+---
+
+## 🔥 킬러 조합
+
+<table>
+<tr>
+<td width="33%" valign="top">
+
+**🌙 취침 자동화**
+```bash
+stv audio play "rain" --rooms bedroom
+stv scene sleep
+stv --all off
+```
+환경음, 화면 꺼짐, 자동 타이머, 나머지 TV 전부 종료.
+
+</td>
+<td width="33%" valign="top">
+
+**🎧 무료 Sonos**
+```bash
+stv audio play "lo-fi beats"
+stv audio volume kitchen 40
+stv audio volume bedroom 15
+```
+모든 TV가 스피커가 됩니다. 방마다 볼륨 조절. 화면은 꺼짐.
+
+</td>
+<td width="33%" valign="top">
+
+**💰 구독 점검**
+```bash
+stv sub-value netflix --cost 17.99
+# → $8.50/hr — 해지를 고려하세요
+
+stv sub-value youtube --cost 13.99
+# → $1.20/hr — 가성비 좋음
+```
+
+</td>
+</tr>
+</table>
+
+> [**레시피 10개 더 보기 →**](../../docs/guides/recipes.md)
+
+---
+
+## ⚙️ 동작 원리
+
+```
+  "Play Dark S1E1"
+        │
+        ▼
+  ┌─── 해석 ──────────┐
+  │ 캐시 → API → 웹   │  content_id
+  │  0.1s   1s   3s  │──────────────▶ 📺 TV 재생
+  └───────────────────┘       │
+                         딥링크 연결
+                    LG / Samsung / Roku / Android
+```
+
+이름을 말하면 stv가 콘텐츠 ID를 찾아 TV 앱에 딥링크로 연결합니다. 브라우저 자동화 없음, API 키 없음, 클라우드 의존 없음. 결과는 캐시되어 반복 재생 시 즉시 실행됩니다.
+
+---
+
+## 📦 설치
+
+```bash
+pip install stv                    # LG webOS (기본)
+pip install "stv[samsung]"         # Samsung Tizen
+pip install "stv[android]"         # Android TV / Fire TV
+pip install "stv[all]"             # 전부 다
+```
+
+```bash
+stv setup                          # TV 자동 탐색 + 페어링
+```
+
+> **LG webOS** · **Samsung Tizen** · **Android TV / Fire TV** · **Roku** 지원
+
+---
+
+## 🔌 연동 지원
+
+| 연동 | 방법 |
+|-----|------|
+| **Claude Code / Cursor** | MCP 설정 추가 → `"Dark s1e1 틀어줘"` |
+| **OpenClaw** | `clawhub install smartest-tv` → 텔레그램 봇 |
+| **Home Assistant** | 자동화에서 쉘 명령 사용 |
+| **cron** | `0 7 * * * stv display dashboard ...` |
+| **쉘 스크립트** | `sleep-mode`, `party-mode` 원라이너 |
+| **모든 MCP 클라이언트** | 도구 21개, stdio 또는 HTTP (`stv serve`) |
+
+---
+
+## 📚 문서
 
 | | |
 |---|---|
-| [시작하기](../../docs/getting-started/installation.md) | 모든 TV 브랜드 최초 설정 |
-| [콘텐츠 재생](../../docs/guides/playing-content.md) | play, cast, search, queue, resolve |
-| [Scene](../../docs/guides/scenes.md) | 프리셋: movie-night, kids, sleep, 커스텀 |
-| [멀티 TV](../../docs/guides/multi-tv.md) | `--tv` 옵션으로 여러 TV 제어 |
-| [싱크 & 파티](../../docs/guides/sync-party.md) | 모든 TV 동시 재생, 원격 워치 파티 |
+| [시작하기](../../docs/getting-started/installation.md) | 모든 TV 브랜드 초기 설정 |
+| [콘텐츠 재생](../../docs/guides/playing-content.md) | play, cast, queue, resolve |
+| [Scene](../../docs/guides/scenes.md) | movie-night, kids, sleep, 커스텀 |
+| [싱크 & 파티](../../docs/guides/sync-party.md) | 멀티 TV, 원격 워치 파티 |
+| [레시피](../../docs/guides/recipes.md) | **강력한 기능 조합 10가지** |
 | [AI 에이전트](../../docs/guides/ai-agents.md) | Claude, Cursor, OpenClaw MCP 설정 |
-| [추천](../../docs/guides/recommendations.md) | AI 기반 콘텐츠 추천 |
 | [CLI 레퍼런스](../../docs/reference/cli.md) | 모든 명령어와 옵션 |
-| [MCP 도구](../../docs/reference/mcp-tools.md) | 파라미터 포함 MCP 도구 18개 전체 |
-| [OpenClaw](../../docs/integrations/openclaw.md) | ClawHub 스킬 + 텔레그램 시나리오 |
+| [MCP 도구](../../docs/reference/mcp-tools.md) | 파라미터 포함 21개 도구 전체 |
 
-## 기여
+---
 
-Samsung, Roku, Android TV 드라이버는 실제 기기 테스트가 필요합니다. 이런 TV를 갖고 있다면 피드백이 정말 소중합니다.
+## 🤝 기여하기
+
+테스트 211개. TV 없이도 실행됩니다.
 
 ```bash
 pip install -e ".[dev]"
-python -m pytest tests/ -v         # 169개 테스트, TV 불필요
+python -m pytest tests/ -v
 ```
 
-좋아하는 작품을 커뮤니티 캐시에 추가하고 싶다면? [캐시 기여하기](../../docs/contributing/cache-contributions.md)를 참고하세요.
+Samsung, Roku, Android TV 드라이버는 실제 기기 테스트가 필요합니다. 이런 TV를 갖고 있다면 [여러분의 피드백이 소중합니다](https://github.com/Hybirdss/smartest-tv/issues).
 
-새 TV 드라이버를 작성하고 싶다면? [드라이버 개발](../../docs/contributing/driver-development.md)을 참고하세요.
+[캐시 기여하기](../../docs/contributing/cache-contributions.md) · [드라이버 개발](../../docs/contributing/driver-development.md)
 
-## 라이선스
+---
 
-MIT
+<p align="center">
+  <sub><a href="../../LICENSE">FSL-1.1-Apache-2.0</a> · 자유롭게 사용 가능 · 2028년에 Apache 2.0으로 전환 · 클라우드 불필요</sub>
+</p>
 
 <!-- mcp-name: io.github.Hybirdss/smartest-tv -->

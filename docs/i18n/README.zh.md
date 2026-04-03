@@ -1,179 +1,197 @@
-# smartest-tv
+<h1 align="center">
+  <br>
+  📺
+  <br>
+  smartest-tv
+  <br>
+</h1>
 
-[![PyPI](https://img.shields.io/pypi/v/stv)](https://pypi.org/project/stv/)
-[![Downloads](https://img.shields.io/pypi/dm/stv)](https://pypi.org/project/stv/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://python.org)
-[![Tests](https://img.shields.io/badge/tests-169%20passed-brightgreen)](tests/)
-
-[English](../../README.md) | [한국어](README.ko.md) | **中文** | [日本語](README.ja.md) | [Español](README.es.md) | [Deutsch](README.de.md) | [Português](README.pt-br.md) | [Français](README.fr.md)
-
-**跟你的电视说话。它听得懂。**
-
-| 没有 stv | 有了 stv |
-|:-------:|:-------:|
-| 手机上打开 Netflix | `stv play netflix "Dark" s1e1` |
-| 搜索剧集 | (自动完成) |
-| 选择季数 | (自动计算) |
-| 选择集数 | (深度链接直达) |
-| 点击播放 | |
-| **约30秒** | **约3秒** |
+<h4 align="center">你的电视一直在等待的 CLI。</h4>
 
 <p align="center">
-  <a href="https://github.com/Hybirdss/smartest-tv/releases/download/v0.3.0/KakaoTalk_20260403_051617935.mp4">
-    <img src="../../docs/assets/demo.gif" alt="smartest-tv demo" width="720">
-  </a>
+  <b>按名称播放 Netflix。投屏 URL。多房间音频。AI 管家。全在你的终端里。</b>
 </p>
 
-*点击观看完整视频（含声音）*
+<p align="center">
+  <a href="https://pypi.org/project/stv/"><img src="https://img.shields.io/pypi/v/stv?style=flat-square&color=blue" alt="PyPI"></a>
+  <a href="https://pypi.org/project/stv/"><img src="https://img.shields.io/pypi/dm/stv?style=flat-square&color=green" alt="Downloads"></a>
+  <a href="../../tests/"><img src="https://img.shields.io/badge/tests-211%20passed-brightgreen?style=flat-square" alt="Tests"></a>
+  <a href="../../LICENSE"><img src="https://img.shields.io/badge/license-FSL--1.1-blue?style=flat-square" alt="FSL-1.1"></a>
+  <a href="https://python.org"><img src="https://img.shields.io/badge/python-3.11+-3776ab?style=flat-square&logo=python&logoColor=white" alt="Python"></a>
+  <a href="https://modelcontextprotocol.io"><img src="https://img.shields.io/badge/MCP-21%20tools-8A2BE2?style=flat-square" alt="MCP Tools"></a>
+</p>
 
-## 快速开始
+<p align="center">
+  <a href="../../README.md">English</a> · <a href="README.ko.md">한국어</a> · <b>中文</b> · <a href="README.ja.md">日本語</a> · <a href="README.es.md">Español</a> · <a href="README.de.md">Deutsch</a> · <a href="README.pt-br.md">Português</a> · <a href="README.fr.md">Français</a>
+</p>
+
+<br>
+
+<p align="center"><code>pip install stv && stv setup</code></p>
+
+<p align="center"><sub>运行在你的本地网络上。无需云端。无需 API 密钥。无需订阅。</sub></p>
+
+<br>
+
+---
+
+<br>
+
+<table align="center">
+<tr>
+<th>😩 没有 stv</th>
+<th>😎 有了 stv</th>
+</tr>
+<tr>
+<td>
+
+1. 拿起遥控器
+2. 打开 Netflix 应用
+3. 搜索节目
+4. 选择季数
+5. 选择集数
+6. 按播放
+
+**约 30 秒**
+
+</td>
+<td>
 
 ```bash
-pip install stv
-stv setup          # 自动发现电视、完成配对，搞定
+stv play netflix "Dark" s1e1
 ```
 
-## 大家用 stv 做什么
+**约 3 秒**
 
-### "把这个链接投到电视上"
+</td>
+</tr>
+</table>
 
-朋友发来一个 YouTube 链接。粘贴。电视开始播放。
+<br>
 
+---
+
+## ✨ 它能做什么
+
+<table>
+<tr>
+<td width="33%" valign="top">
+
+### 🎬 按名称播放
 ```bash
-stv cast https://youtube.com/watch?v=dQw4w9WgXcQ
-stv cast https://netflix.com/watch/81726716
-stv cast https://open.spotify.com/track/3bbjDFVu9BtFtGD2fZpVfz
+stv play netflix "Dark" s1e1
+stv play youtube "baby shark"
+stv play spotify "chill vibes"
 ```
+说出名称，stv 找到 ID，打开应用，开始播放。
 
-### "派对歌单排队"
+</td>
+<td width="33%" valign="top">
 
-每个人加入自己喜欢的歌。电视按顺序播放。
+### 🔗 投屏任意 URL
+```bash
+stv cast https://youtu.be/dQw4w
+stv cast https://netflix.com/watch/...
+stv cast https://open.spotify.com/...
+```
+朋友发来链接，粘贴，电视开始播放。
 
+</td>
+<td width="33%" valign="top">
+
+### 🎵 队列与派对
 ```bash
 stv queue add youtube "Gangnam Style"
-stv queue add youtube "Despacito"
-stv queue add spotify "playlist:Friday Night Vibes"
-stv queue play                     # 按顺序开始播放
-stv queue skip                     # 下一首
+stv queue add spotify "Blinding Lights"
+stv queue play
 ```
+每个人添加自己的选择，电视按顺序播放。
 
-### "不知道看什么"
+</td>
+</tr>
+<tr>
+<td width="33%" valign="top">
 
-别再刷 30 分钟 Netflix 了。问问什么在热播。获取一个推荐。
-
+### 🎭 场景预设
 ```bash
-stv whats-on netflix               # 当前热门前 10 名
-stv recommend --mood chill         # 基于你的观看记录
-stv recommend --mood action        # 换个心情，换批推荐
+stv scene movie-night   # 音量 20，影院模式
+stv scene kids          # 音量 15，Cocomelon
+stv scene sleep         # 雨声，自动关机
 ```
+一条命令设定氛围。
 
-### "电影之夜"
+</td>
+<td width="33%" valign="top">
 
-一条命令搞定氛围：音量、通知、内容。
-
+### 🔊 多房间音频
 ```bash
-stv scene movie-night              # 音量20，影院模式
-stv scene kids                     # 音量15，播放 Cocomelon
-stv scene sleep                    # 环境音效，自动关机
-stv scene create date-night        # 创建你自己的场景
+stv audio play "lo-fi beats"
+stv audio volume kitchen 30
+stv audio stop
 ```
+屏幕关闭，音乐无处不在。<br>**免费的 Sonos。**
 
-### "随时随地，同步播放"
+</td>
+<td width="33%" valign="top">
 
-一条命令，所有电视同步启动。派对模式，本地远程一起上。
-
+### 📺 电视作为显示屏
 ```bash
-stv --all play youtube "lo-fi beats"             # 家里每台电视同时播放
-stv --group party play netflix "Wednesday" s1e1  # 指定分组同步开播
-stv --all off                                    # 晚安，全部关机
+stv display message "Dinner!"
+stv display clock
+stv display dashboard "Temp:22°C"
 ```
+仪表板、时钟、标牌。<br>**每月 $0。**
 
-### "从上次看到的地方继续"
+</td>
+</tr>
+<tr>
+<td width="33%" valign="top">
 
+### 📊 观看智能分析
 ```bash
-stv next                           # 从上次的剧集继续
-stv next "Breaking Bad"            # 指定剧集继续看
-stv history                        # 查看观看记录
+stv insights
+stv screen-time
+stv sub-value netflix --cost 17.99
 ```
+你的 Netflix 值 $18/月吗？
 
-## 与 stv 共度的一天
+</td>
+<td width="33%" valign="top">
 
-**早上 7 点** -- 闹钟响了。"有什么热播？" `stv whats-on youtube` 显示晨间新闻。电视开始播放。
-
-**早上 8 点** -- 孩子醒了。`stv scene kids` -- 音量 15，Cocomelon 启动。
-
-**中午 12 点** -- 朋友发来一个 Netflix 链接。`stv cast https://netflix.com/watch/...` -- 电视直接播放。
-
-**下午 6 点 30 分** -- 下班回家。`stv scene movie-night` -- 音量降低，影院模式。
-
-**晚上 7 点** -- "看什么好？" `stv recommend --mood chill` -- 推荐《女王的棋局》。
-
-**晚上 9 点** -- 朋友来了。`stv --group party play netflix "Wednesday" s1e1` -- 所有电视同步开播，派对模式启动。
-
-**晚上 11 点 30 分** -- "晚安。" `stv scene sleep` -- 环境音效，45 分钟后电视自动关机。
-
-<details>
-<summary><b>stv 是怎么只用一次 HTTP 请求就找到 Netflix 剧集的？</b></summary>
-
-Netflix 会在 `<script>` 标签中服务端渲染 `__typename:"Episode"` 元数据。同一季内的剧集 ID 是连续整数。向剧集页面发送一次 `curl` 请求，即可提取所有季的所有剧集 ID。无需 Playwright，无需无头浏览器，无需 API Key，无需登录。
-
-结果以三层缓存存储：
-1. **本地缓存** -- `~/.config/smartest-tv/cache.json`，即时返回 (~0.1 秒)
-2. **社区缓存** -- 通过 GitHub raw CDN 众包 ID（预置 40 余条），零服务器成本
-3. **网络搜索兜底** -- 通过 Brave Search 自动发现未知标题 ID
-
-</details>
-
-<details>
-<summary><b>深度链接 -- stv 与电视通信的方式</b></summary>
-
-每个驱动将内容 ID 转换为平台原生的深度链接格式：
-
-| 电视 | 协议 | 深度链接格式 |
-|------|------|------------|
-| LG webOS | SSAP WebSocket (:3001) | `contentId` via DIAL / `params.contentTarget` |
-| Samsung Tizen | WebSocket (:8001) | `run_app(id, "DEEP_LINK", meta_tag)` |
-| Android / Fire TV | ADB TCP (:5555) | `am start -d 'netflix://title/{id}'` |
-| Roku | HTTP ECP (:8060) | `POST /launch/{ch}?contentId={id}` |
-
-这些细节你完全不需要关心。驱动会自动处理。
-
-</details>
-
-<details>
-<summary><b>支持平台</b></summary>
-
-| 平台 | 驱动 | 状态 |
-|------|------|------|
-| LG webOS | [bscpylgtv](https://github.com/chros73/bscpylgtv) | **已验证** |
-| Samsung Tizen | [samsungtvws](https://github.com/xchwarze/samsung-tv-ws-api) | 社区测试中 |
-| Android / Fire TV | [adb-shell](https://github.com/JeffLIrion/adb-shell) | 社区测试中 |
-| Roku | HTTP ECP | 社区测试中 |
-
-</details>
-
-## 安装
-
+### 🌐 同步派对
 ```bash
-pip install stv                 # LG（默认）
-pip install "stv[samsung]"      # Samsung Tizen
-pip install "stv[android]"      # Android TV / Fire TV
-pip install "stv[all]"          # 全部平台
+stv --all play youtube "lo-fi beats"
+stv --group party play netflix "Wed..."
+stv --all off   # 晚安
 ```
+每台电视，同时播放，甚至包括远程朋友。
 
-## 与一切集成
+</td>
+<td width="33%" valign="top">
 
-| 集成 | 效果 |
-|------|------|
-| **Claude Code** | "播放 Breaking Bad s1e1" -- 电视开始播放 |
-| **OpenClaw** | Telegram: "到家了" -- 场景 + 推荐 + 播放 |
-| **Home Assistant** | 门打开 -- 电视开机 -- 热播节目列表出现 |
-| **Cursor / Codex** | AI 写代码休息时，顺便控制电视 |
-| **cron / 脚本** | 早 7 点：卧室电视播新闻。晚 9 点：儿童电视关机 |
-| **任意 MCP 客户端** | stdio 或 HTTP，18 个工具随时可用 |
+### 🤖 AI 管家
+```
+"Play something chill"
+→ tv_recommend → tv_play
+→ Playing The Queen's Gambit
+```
+21 个 MCP 工具，一句话就够了。
 
-### MCP 服务器
+</td>
+</tr>
+</table>
+
+---
+
+## 🤖 让你的 AI 控制电视
+
+stv 是一个 **MCP 服务器**。Claude、GPT、Cursor 或任何 MCP 客户端都可以用自然语言控制你的电视。
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+**配置（一行搞定）：**
 
 ```json
 {
@@ -186,49 +204,210 @@ pip install "stv[all]"          # 全部平台
 }
 ```
 
-作为 HTTP 服务器运行以支持远程访问：
-
-```bash
-stv serve --port 8910              # SSE 在 http://localhost:8910/sse
-stv serve --transport streamable-http
-```
-
-### OpenClaw
-
+或通过 [OpenClaw](../../docs/integrations/openclaw.md)：
 ```bash
 clawhub install smartest-tv
 ```
 
-## 文档
+</td>
+<td width="50%" valign="top">
+
+**然后直接对话：**
+
+```
+You: "I just got home, set up movie night"
+
+Claude: 🎬 Movie night activated.
+  Volume → 20, cinema mode on.
+  
+  Based on your history:
+  1. The Queen's Gambit (Netflix)
+  2. Ozark (Netflix)
+  3. Squid Game S2 (Netflix)
+
+You: "Play 1, put a clock on kitchen TV"
+
+Claude: ✓ Playing The Queen's Gambit
+         ✓ Clock on kitchen TV
+```
+
+</td>
+</tr>
+</table>
+
+<details>
+<summary><b>全部 21 个 MCP 工具</b></summary>
+<br>
+
+| 分类 | 工具 | 功能 |
+|------|------|------|
+| **播放** | `tv_play` | 按名称搜索并播放 |
+| | `tv_cast` | 投屏任意 URL |
+| | `tv_next` | 继续观看 |
+| | `tv_launch` | 通过 ID 启动应用 |
+| | `tv_resolve` | 仅获取内容 ID |
+| **发现** | `tv_whats_on` | 热门内容 |
+| | `tv_recommend` | 个性化推荐 |
+| **控制** | `tv_power` | 开/关机 |
+| | `tv_volume` | 获取/设置/调节/静音 |
+| | `tv_screen` | 屏幕开/关 |
+| | `tv_notify` | 弹出通知 |
+| | `tv_status` | 当前状态 |
+| **组织** | `tv_queue` | 播放队列 |
+| | `tv_scene` | 场景预设 |
+| | `tv_history` | 观看记录 |
+| **智能** | `tv_insights` | 观看统计 |
+| | `tv_display` | 电视作为显示屏 |
+| | `tv_audio` | 多房间音频 |
+| **多电视** | `tv_sync` | 在所有电视上播放 |
+| | `tv_list_tvs` | 列出电视 |
+| | `tv_groups` | 电视分组 |
+
+</details>
+
+---
+
+## 📅 与 stv 共度的一天
+
+| 时间 | 发生的事 |
+|------|---------|
+| **早上 7 点** | 厨房电视上 `stv display dashboard "Weather:18°C" "Meeting:10am"` |
+| **早上 8 点** | `stv scene kids --tv kids-room` -- Cocomelon，音量 15 |
+| **中午 12 点** | 朋友发来 Netflix 链接 → `stv cast <url>` |
+| **下午 5 点** | `stv screen-time` → 孩子今天看了 2 小时 15 分钟 |
+| **下午 6:30** | `stv scene movie-night` -- 音量 20，影院模式 |
+| **晚上 7 点** | `stv recommend --mood chill` → 推荐《Ozark》 |
+| **晚上 9 点** | `stv audio play "friday vibes" -p spotify` -- 音乐无处不在 |
+| **晚上 10 点** | `stv --group party play netflix "Wednesday" s1e1` -- 同步播放 |
+| **晚上 11:30** | `stv scene sleep` → `stv --all off` -- 晚安 |
+
+---
+
+## 🔥 杀手级组合
+
+<table>
+<tr>
+<td width="33%" valign="top">
+
+**🌙 就寝自动驾驶**
+```bash
+stv audio play "rain" --rooms bedroom
+stv scene sleep
+stv --all off
+```
+环境音效，屏幕关闭，自动定时，关掉所有其他电视。
+
+</td>
+<td width="33%" valign="top">
+
+**🎧 免费的 Sonos**
+```bash
+stv audio play "lo-fi beats"
+stv audio volume kitchen 40
+stv audio volume bedroom 15
+```
+每台电视都是扬声器，各房间独立音量，屏幕关闭。
+
+</td>
+<td width="33%" valign="top">
+
+**💰 订阅审计**
+```bash
+stv sub-value netflix --cost 17.99
+# → $8.50/hr — consider canceling
+
+stv sub-value youtube --cost 13.99
+# → $1.20/hr — good value
+```
+
+</td>
+</tr>
+</table>
+
+> [**10 个更多使用方案 →**](../../docs/guides/recipes.md)
+
+---
+
+## ⚙️ 工作原理
+
+```
+  "Play Dark S1E1"
+        │
+        ▼
+  ┌─── Resolution ───┐
+  │ Cache → API → Web │  content_id
+  │  0.1s   1s    3s  │──────────────▶ 📺 TV plays it
+  └───────────────────┘       │
+                         Deep link via
+                    LG / Samsung / Roku / Android
+```
+
+说出名称，stv 将其解析为内容 ID，通过深度链接直接在电视上打开应用。无需浏览器自动化，无需 API 密钥，无需云依赖。结果会被缓存，重复播放即时完成。
+
+---
+
+## 📦 安装
+
+```bash
+pip install stv                    # LG webOS（默认）
+pip install "stv[samsung]"         # Samsung Tizen
+pip install "stv[android]"         # Android TV / Fire TV
+pip install "stv[all]"             # 全部平台
+```
+
+```bash
+stv setup                          # 自动发现并配对你的电视
+```
+
+> 支持 **LG webOS** · **Samsung Tizen** · **Android TV / Fire TV** · **Roku**
+
+---
+
+## 🔌 集成支持
+
+| 集成 | 方式 |
+|------|------|
+| **Claude Code / Cursor** | 添加 MCP 配置 → `"play Dark s1e1"` |
+| **OpenClaw** | `clawhub install smartest-tv` → Telegram 机器人 |
+| **Home Assistant** | 在自动化中使用 Shell 命令 |
+| **cron** | `0 7 * * * stv display dashboard ...` |
+| **Shell 脚本** | `sleep-mode`、`party-mode` 一行命令 |
+| **任意 MCP 客户端** | 21 个工具，stdio 或 HTTP（`stv serve`） |
+
+---
+
+## 📚 文档
 
 | | |
 |---|---|
-| [快速上手](../../docs/getting-started/installation.md) | 各品牌电视的首次配置 |
-| [播放内容](../../docs/guides/playing-content.md) | play, cast, search, queue, resolve |
-| [场景](../../docs/guides/scenes.md) | 预设：movie-night, kids, sleep, 自定义 |
-| [多电视](../../docs/guides/multi-tv.md) | 用 `--tv` 控制多台电视 |
-| [同步派对](../../docs/guides/sync-party.md) | `--all` / `--group` 多屏同步播放 |
-| [AI 助手](../../docs/guides/ai-agents.md) | Claude, Cursor, OpenClaw 的 MCP 配置 |
-| [推荐功能](../../docs/guides/recommendations.md) | AI 驱动的内容推荐 |
+| [快速上手](../../docs/getting-started/installation.md) | 各品牌电视的配置 |
+| [播放内容](../../docs/guides/playing-content.md) | play、cast、queue、resolve |
+| [场景](../../docs/guides/scenes.md) | movie-night、kids、sleep、自定义 |
+| [同步与派对](../../docs/guides/sync-party.md) | 多电视、远程观影派对 |
+| [使用方案](../../docs/guides/recipes.md) | **10 个强力功能组合** |
+| [AI 助手](../../docs/guides/ai-agents.md) | Claude、Cursor、OpenClaw 的 MCP 配置 |
 | [CLI 参考](../../docs/reference/cli.md) | 所有命令和选项 |
-| [MCP 工具](../../docs/reference/mcp-tools.md) | 含参数的全部 18 个 MCP 工具 |
-| [OpenClaw](../../docs/integrations/openclaw.md) | ClawHub 技能 + Telegram 场景 |
+| [MCP 工具](../../docs/reference/mcp-tools.md) | 含参数的全部 21 个工具 |
 
-## 贡献
+---
 
-Samsung、Roku 和 Android TV 驱动需要真实设备测试。如果你有这些电视，你的反馈非常宝贵。
+## 🤝 贡献
+
+211 个测试，无需电视即可运行。
 
 ```bash
 pip install -e ".[dev]"
-python -m pytest tests/ -v         # 169 个测试，无需电视
+python -m pytest tests/ -v
 ```
 
-想把你喜欢的剧集加入社区缓存？请参阅[贡献缓存](../../docs/contributing/cache-contributions.md)。
+Samsung、Roku 和 Android TV 驱动需要真实设备测试。如果你有这些设备，[你的反馈非常重要](https://github.com/Hybirdss/smartest-tv/issues)。
 
-想为新电视编写驱动？请参阅[驱动开发](../../docs/contributing/driver-development.md)。
+[贡献缓存](../../docs/contributing/cache-contributions.md) · [驱动开发](../../docs/contributing/driver-development.md)
 
-## 许可证
+---
 
-MIT
+<p align="center">
+  <sub><a href="../../LICENSE">FSL-1.1-Apache-2.0</a> · 免费使用 · 2028 年转为 Apache 2.0 · 无需云端</sub>
+</p>
 
 <!-- mcp-name: io.github.Hybirdss/smartest-tv -->
