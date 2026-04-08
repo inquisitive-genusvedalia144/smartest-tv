@@ -1,6 +1,6 @@
 [project]
 name = "stv"
-version = "0.8.0"
+version = "0.8.1"
 description = "Talk to your TV. Control any smart TV with natural language."
 readme = "README.md"
 license = "MIT"
@@ -48,9 +48,12 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build]
-# Include _engine in wheel even though it's gitignored
-# (GitHub: hidden source, PyPI: full functionality)
-ignore-vcs = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/smartest_tv"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"src/smartest_tv/_engine" = "smartest_tv/_engine"
+
+[tool.hatch.build.targets.sdist.force-include]
+"src/smartest_tv/_engine" = "src/smartest_tv/_engine"

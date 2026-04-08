@@ -204,13 +204,13 @@ def _api_resolve(platform: str, query: str, season: int | None = None,
 
         if data.get("error") == "rate_limited":
             raise ValueError(
-                f"Daily resolve limit reached. "
-                f"Install from PyPI for unlimited local resolution: pip install stv"
+                f"Daily resolve limit reached ({platform}: {query}). "
+                f"Run: stv cache update"
             )
 
     raise ValueError(
         f"Could not resolve {platform}: {query}. "
-        f"Install from PyPI for local resolution: pip install stv"
+        f"Try: stv cache update"
     )
 
 
