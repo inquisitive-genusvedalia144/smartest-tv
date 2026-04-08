@@ -31,7 +31,7 @@ android = ["adb-shell>=0.4.0"]
 roku = ["aiohttp>=3.9.0"]
 mcp = ["fastmcp>=2.0.0"]
 all = ["stv[lg,samsung,android,roku,mcp]"]
-dev = ["pytest>=8.0.0"]
+dev = ["pytest>=8.0.0", "pytest-asyncio>=0.23.0"]
 
 [project.urls]
 Homepage = "https://github.com/Hybirdss/smartest-tv"
@@ -43,6 +43,7 @@ stv = "smartest_tv.cli:main"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
+asyncio_mode = "auto"
 
 [build-system]
 requires = ["hatchling"]
