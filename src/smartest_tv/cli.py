@@ -85,7 +85,99 @@ def _info(message: str, icon: str = ""):
     _ui_console.print(f"[info]{prefix}{message}[/info]")
 
 
-@click.group()
+def _show_home(ctx):
+    """Show the home dashboard: first-run / connected / offline."""
+    from smartest_tv.ui.home import (
+        render_home_first_run,
+        render_home_connected,
+        render_home_offline,
+    )
+    from smartest_tv.ui.suggest import suggest_for
+    from smartest_tv import config as _cfg
+
+    # State 1: No config at all → first-run welcome
+    if not _cfg.CONFIG_FILE.exists():
+        _print(render_home_first_run())
+        return
+
+    # State 2/3: Config exists, try to connect (with a short timeout)
+    try:
+        tv = get_tv_config(ctx.obj.get("tv_name"))
+    except (KeyError, Exception):
+        _print(render_home_first_run())
+        return
+
+    if not tv.get("platform"):
+        _print(render_home_first_run())
+        return
+
+    tv_label = tv.get("name") or "TV"
+    platform = tv.get("platform", "?")
+    ip = tv.get("ip", "")
+
+    d = None
+    try:
+        d = _get_driver(ctx.obj.get("tv_name"))
+    except click.ClickException as e:
+        _print(render_home_offline(tv_label, platform, ip, error=str(e)))
+        return
+    except Exception as e:
+        _print(render_home_offline(tv_label, platform, ip, error=str(e)[:60]))
+        return
+
+    async def _do():
+        await d.connect()
+        s = await d.status()
+        return {
+            "platform": platform,
+            "current_app": s.current_app,
+            "volume": s.volume,
+            "muted": s.muted,
+            "sound_output": s.sound_output,
+        }
+
+    try:
+        status = _run(_do())
+    except Exception as e:
+        _print(render_home_offline(tv_label, platform, ip, error=str(e)[:60]))
+        return
+
+    # State 2: connected — build suggestions from history
+    try:
+        from smartest_tv import cache as _cache
+        history = _cache.get_history(10) or []
+    except Exception:
+        history = []
+
+    suggestions = suggest_for(history=history, app_id=status.get("current_app"))
+    _print(render_home_connected(tv_label, status, suggestions))
+
+
+class _NLGroup(click.Group):
+    """Click Group that tries natural-language parsing when a command isn't found."""
+
+    def resolve_command(self, ctx, args):
+        try:
+            return super().resolve_command(ctx, args)
+        except click.UsageError:
+            from smartest_tv.ui import nl as _nl
+            user_input = " ".join(args)
+            parsed = _nl.parse(user_input)
+            if parsed is None:
+                from smartest_tv.ui.home import render_nl_hint
+                _print(render_nl_hint(user_input, _nl.suggestions_for(user_input)))
+                ctx.exit(1)
+            cmd_name, new_args = parsed
+            cmd = super().get_command(ctx, cmd_name)
+            if cmd is None:
+                from smartest_tv.ui.home import render_nl_hint
+                _print(render_nl_hint(user_input, _nl.suggestions_for(user_input)))
+                ctx.exit(1)
+            # Click's resolve_command returns (name, command, remaining_args)
+            return cmd_name, cmd, new_args
+
+
+@click.group(cls=_NLGroup, invoke_without_command=True)
 @click.option("--format", "fmt", default="text", type=click.Choice(["text", "json"]),
               help="Output format")
 @click.option("--tv", "tv_name", default=None, help="Target TV name (default: primary TV)")
@@ -99,6 +191,10 @@ def main(ctx, fmt, tv_name, all_tvs, group_name):
     ctx.obj["tv_name"] = tv_name
     ctx.obj["all_tvs"] = all_tvs
     ctx.obj["group_name"] = group_name
+
+    # No subcommand → show home dashboard (or auto-setup on first run)
+    if ctx.invoked_subcommand is None:
+        _show_home(ctx)
 
 
 def _get_targets(ctx) -> list[str]:

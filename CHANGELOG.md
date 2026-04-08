@@ -6,6 +6,58 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-04-09
+
+### Added
+
+- **Zero-friction home dashboard.** Typing `stv` with no args now shows
+  one of four context-aware screens instead of a raw command dump:
+  - **First-run:** welcome panel pointing to `stv setup`
+  - **Connected:** Now Playing card + three contextual next-action
+    suggestions driven by your watch history
+  - **Offline:** troubleshooting panel with `stv on` / `stv doctor` / `stv setup`
+  - **NL fallback:** friendly hint panel when your input doesn't match
+    any command
+- **Natural-language fallback parser** (`ui/nl.py`). Unknown first arguments
+  are parsed as natural language before giving up. Supports:
+  - `stv play dark on netflix`
+  - `stv youtube lofi beats`
+  - `stv what's on netflix`
+  - `stv next`, `stv continue`, `stv resume`
+  - `stv stats`, `stv insights`, `stv recommend chill`
+  - `stv "the bear"` → search Netflix
+  Falls back to a hint panel with typed suggestions for truly ambiguous input.
+- **Context-aware suggestions** (`ui/suggest.py`). The home dashboard now
+  recommends next actions based on recent history:
+  - Suggests `stv next` when you have a Netflix S/E in history (with the
+    actual show name and next episode)
+  - Suggests `stv whats-on <platform>` based on your most-used service
+  - Prioritizes `stv whats-on` when the TV is idle on the home screen
+- **Friendly error panels for driver installs.** `ImportError` messages
+  now include both pipx and pip fix commands:
+  ```
+  LG driver requires bscpylgtv.
+    pipx inject stv bscpylgtv         (recommended)
+    pip install 'stv[lg]'             (alternative)
+  ```
+- **Rich-powered `stv setup`.** Discovery, pairing, and post-install
+  guidance all render through the themed console with live spinners and
+  bordered panels. Zero questions when exactly one TV is found.
+
+### Changed
+
+- `cli.py` root command now uses a custom `_NLGroup` that intercepts
+  `click.UsageError` to try NL parsing before showing the unknown-command
+  error.
+- `stv` with no args no longer dumps the full 30-command help menu.
+  Click help is still available via `stv --help`.
+
+### Tests
+
+- New test modules: `tests/test_nl.py` (33 cases), `tests/test_suggest.py`
+  (7 cases). Covers all NL parser branches and suggestion rules.
+- **252/252 tests pass** (up from 212 in v0.9.0).
+
 ## [0.9.0] - 2026-04-09
 
 ### Added

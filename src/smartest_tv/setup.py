@@ -1,7 +1,7 @@
-"""Interactive setup wizard for smartest-tv.
+"""Zero-friction setup wizard for smartest-tv.
 
-`stv setup` — discovers TV, pairs, saves config, tests, detects AI client.
-Zero questions. Zero env vars. Just works.
+`stv setup` — discovers TV, pairs, saves config, tests. Rich UI throughout.
+Zero questions when there's exactly one TV. One prompt when there are many.
 """
 
 from __future__ import annotations
@@ -11,117 +11,166 @@ import shutil
 import sys
 
 import click
+from rich.live import Live
+from rich.spinner import Spinner
+from rich.text import Text
 
 from smartest_tv.config import save as save_config
+from smartest_tv.ui import console as _ui_console
+from smartest_tv.ui.common import boxed, kv_table
+from smartest_tv.ui.home import render_found_tv, render_paired
+from smartest_tv.ui.render import render_error, render_success
+from smartest_tv.ui.theme import ICONS
+
+
+def _print(r):
+    _ui_console.print(r)
 
 
 def run_setup(ip: str | None = None) -> None:
     """Run the full interactive setup."""
-    click.echo()
+    _ui_console.print()
 
+    # --- Discover ---
     if ip:
-        click.echo(f"🔍 Connecting to {ip}...")
-        click.echo()
-        tvs = asyncio.run(_probe_ip(ip))
+        with _ui_console.status(
+            f"[primary]{ICONS['search']} Probing {ip}...[/primary]",
+            spinner="dots",
+        ):
+            tvs = asyncio.run(_probe_ip(ip))
     else:
-        click.echo("🔍 Scanning your network for smart TVs...")
-        click.echo()
-        tvs = asyncio.run(_discover_all())
+        with _ui_console.status(
+            f"[primary]{ICONS['search']} Scanning your network for smart TVs...[/primary]",
+            spinner="dots",
+        ):
+            tvs = asyncio.run(_discover_all())
 
     if not tvs:
-        click.echo("❌ No TV found on your network.")
-        click.echo()
-        click.echo("   Checklist:")
-        click.echo("   • Is the TV turned on?")
-        click.echo("   • Are TV and computer on the same Wi-Fi?")
-        if not ip:
-            click.echo("   • Try: stv setup --ip 192.168.1.XXX")
-        click.echo()
+        _print(render_error(
+            "No TV found on your network.",
+            hint=(
+                "Checklist:\n"
+                "  • Is the TV turned on?\n"
+                "  • Are TV and computer on the same Wi-Fi?\n"
+                + ("  • Try: stv setup --ip 192.168.1.XXX" if not ip else "  • Double-check the IP address")
+            ),
+        ))
         sys.exit(1)
 
+    # --- Select ---
     if len(tvs) == 1:
         tv = tvs[0]
-        click.echo(f"   Found: {tv['name']} [{tv['platform'].upper()}]")
-        click.echo()
     else:
-        click.echo(f"Found {len(tvs)} TVs:")
+        _ui_console.print(f"\n[accent]Found {len(tvs)} TVs:[/accent]")
         for i, t in enumerate(tvs, 1):
-            click.echo(f"  {i}. {t['name']} ({t['ip']}) [{t['platform'].upper()}]")
-        click.echo()
-        choice = click.prompt("Which one?", type=int, default=1)
+            _ui_console.print(
+                f"  [primary]{i}[/primary]. {t['name']}  "
+                f"[muted]{t['platform'].upper()} · {t['ip']}[/muted]"
+            )
+        _ui_console.print()
+        choice = click.prompt(click.style("Which one?", fg="magenta"), type=int, default=1)
         tv = tvs[choice - 1]
 
-    click.echo(f"📺 {tv['name']}")
-    click.echo(f"   {tv['platform'].upper()} • {tv['ip']}")
-    click.echo()
+    _print(render_found_tv(tv['name'], tv['platform'], tv['ip']))
 
-    # Platform-specific pairing guidance
+    # --- Pair ---
     platform = tv["platform"]
+    pair_hint_msg = _pairing_hint(platform)
+    if pair_hint_msg:
+        _ui_console.print(f"[muted]   {pair_hint_msg}[/muted]\n")
 
-    if platform == "roku":
-        click.echo("   No pairing needed — Roku is open by default. ✨")
-    elif platform in ("android", "firetv"):
-        click.echo("   📋 Quick one-time setup on your TV:")
-        click.echo("      Settings → About → tap 'Build number' 7 times")
-        click.echo("      → Developer Options → enable 'ADB debugging'")
-        click.echo()
-        click.prompt("   Ready? Press Enter", default="", show_default=False)
-        click.echo()
-        click.echo("   👀 Accept 'Allow USB debugging?' on your TV.")
-    else:
-        click.echo("   👀 A popup just appeared on your TV.")
-        click.echo("   Press OK — this is the only time you need the remote.")
-        if platform == "lg":
-            click.echo("   💡 No remote? Use the LG ThinQ app on your phone.")
-        elif platform == "samsung":
-            click.echo("   💡 No remote? Use the SmartThings app on your phone.")
-
-    click.echo()
-    click.echo("   ⏳ Connecting...", nl=False)
+    if platform in ("android", "firetv"):
+        click.prompt(
+            click.style("   Ready? Press Enter", fg="cyan"),
+            default="", show_default=False,
+        )
 
     try:
-        mac = asyncio.run(_pair_tv(tv))
+        with _ui_console.status(
+            f"[primary]{ICONS['bolt']} Connecting to {tv['name']}...[/primary]",
+            spinner="dots",
+        ):
+            mac = asyncio.run(_pair_tv(tv))
         tv["mac"] = mac
     except Exception as e:
-        click.echo(" ❌")
-        click.echo()
-        click.echo(f"   Connection failed: {e}")
-        click.echo("   Make sure you approved the popup on your TV.")
-        click.echo("   Run `stv setup` again to retry.")
+        _print(render_error(
+            f"Connection failed: {e}",
+            hint=(
+                "Make sure you approved the popup on your TV.\n"
+                "Run `stv setup` again to retry."
+            ),
+        ))
         sys.exit(1)
 
-    click.echo(" ✅")
-    click.echo()
-
-    # Save config
+    # --- Save config ---
     path = save_config(
         platform=tv["platform"],
         ip=tv["ip"],
         mac=tv.get("mac", ""),
         name=tv.get("name", ""),
     )
-    click.echo(f"   💾 Config saved to {path}")
 
-    # Test notification
-    click.echo("   🧪 Sending test notification...", nl=False)
+    # --- Test notification (non-blocking if unsupported) ---
+    notify_ok = False
     try:
-        asyncio.run(_test_notify(tv))
-        click.echo(" look at your TV! 👋")
+        with _ui_console.status(
+            f"[primary]{ICONS['info']} Sending test notification...[/primary]",
+            spinner="dots",
+        ):
+            asyncio.run(_test_notify(tv))
+        notify_ok = True
     except Exception:
-        click.echo(" (notification not supported, but connection works)")
+        pass
 
-    click.echo()
+    # --- Success panel ---
+    from rich.console import Group
+    success_lines: list = [
+        Text(),
+        Text.from_markup(
+            f"[success]{ICONS['ok']}[/success]  Paired with [primary]{tv['name']}[/primary]"
+        ),
+        Text.from_markup(f"[muted]   Config saved to[/muted]  [dim]{path}[/dim]"),
+    ]
+    if notify_ok:
+        success_lines.append(
+            Text.from_markup(
+                f"[success]{ICONS['ok']}[/success]  "
+                "[muted]Test notification sent — check your TV! [/muted][accent]👋[/accent]"
+            )
+        )
+    success_lines.append(Text())
+    success_lines.append(Text.from_markup("[accent]Try these next:[/accent]"))
+    success_lines.append(Text.from_markup(
+        f"  [primary]stv[/primary]                          [muted]— see what's on[/muted]"
+    ))
+    success_lines.append(Text.from_markup(
+        f"  [primary]stv play netflix \"Wednesday\"[/primary]   [muted]— play by name[/muted]"
+    ))
+    success_lines.append(Text.from_markup(
+        f"  [primary]stv scene movie-night[/primary]         [muted]— cinema mode[/muted]"
+    ))
 
-    # Detect AI clients
+    _print(boxed(Group(*success_lines), title=f"{ICONS['tv']} You're all set"))
+
+    # --- Detect AI clients ---
     _detect_ai_clients()
 
-    # Done
-    click.echo("🎉 You're all set! Your voice is now the remote.")
-    click.echo()
-    click.echo("   stv launch youtube dQw4w9WgXcQ    # Play a video")
-    click.echo("   stv volume 30                      # Set volume")
-    click.echo("   stv off                             # Good night")
-    click.echo()
+
+def _pairing_hint(platform: str) -> str:
+    """Return a one-line pairing hint for the given platform."""
+    if platform == "roku":
+        return "No pairing needed — Roku is open by default."
+    if platform in ("android", "firetv"):
+        return (
+            "Quick one-time TV setup:\n"
+            "       Settings → About → tap 'Build number' 7 times\n"
+            "       → Developer Options → enable 'ADB debugging'"
+        )
+    if platform == "lg":
+        return "A popup just appeared on your TV. Press OK.\n   (No remote? Use the LG ThinQ app on your phone.)"
+    if platform == "samsung":
+        return "A popup just appeared on your TV. Press OK.\n   (No remote? Use the SmartThings app.)"
+    return "A popup just appeared on your TV. Press OK."
 
 
 async def _probe_ip(ip: str) -> list[dict]:
@@ -240,18 +289,14 @@ def _detect_ai_clients() -> None:
         ]
     )
 
-    if claude_code:
-        click.echo("   🤖 Detected Claude Code")
-        click.echo("      Run: claude mcp add stv -- uvx stv")
-        click.echo()
-
-    if cursor_config:
-        click.echo("   🤖 Detected Cursor")
-        click.echo('      Add to MCP settings: {"command": "uvx", "args": ["stv"]}')
-        click.echo()
-
-    if not claude_code and not cursor_config:
-        click.echo("   💡 To use with an AI assistant:")
-        click.echo("      Claude Code: claude mcp add stv -- uvx stv")
-        click.echo("      Other: see README for MCP config")
-        click.echo()
+    if claude_code or cursor_config:
+        _ui_console.print(f"\n[accent]{ICONS['info']}  AI assistant detected[/accent]")
+        if claude_code:
+            _ui_console.print(
+                "   [primary]claude mcp add stv -- uvx stv[/primary]     "
+                "[muted]— wire stv into Claude Code[/muted]"
+            )
+        if cursor_config:
+            _ui_console.print(
+                '   [primary]Cursor MCP settings:[/primary] [muted]{"command": "uvx", "args": ["stv"]}[/muted]'
+            )

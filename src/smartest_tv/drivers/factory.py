@@ -52,7 +52,9 @@ def create_driver(tv_name: str | None = None) -> TVDriver:
             from smartest_tv._engine.drivers.lg import LGDriver
         except ImportError:
             raise ImportError(
-                "LG driver requires bscpylgtv. Install with: pip install 'stv[lg]'"
+                "LG driver requires bscpylgtv.\n"
+                "  pipx inject stv bscpylgtv         (recommended)\n"
+                "  pip install 'stv[lg]'             (alternative)"
             )
         return LGDriver(ip=ip, mac=mac)
 
@@ -61,7 +63,9 @@ def create_driver(tv_name: str | None = None) -> TVDriver:
             from smartest_tv._engine.drivers.samsung import SamsungDriver
         except ImportError:
             raise ImportError(
-                "Samsung driver requires samsungtvws. Install with: pip install 'stv[samsung]'"
+                "Samsung driver requires samsungtvws.\n"
+                "  pipx inject stv 'samsungtvws[encrypted]'\n"
+                "  pip install 'stv[samsung]'"
             )
         return SamsungDriver(ip=ip, mac=mac)
 
@@ -70,7 +74,9 @@ def create_driver(tv_name: str | None = None) -> TVDriver:
             from smartest_tv._engine.drivers.android import AndroidDriver
         except ImportError:
             raise ImportError(
-                "Android driver requires adb-shell. Install with: pip install 'stv[android]'"
+                "Android driver requires adb-shell.\n"
+                "  pipx inject stv adb-shell\n"
+                "  pip install 'stv[android]'"
             )
         return AndroidDriver(ip=ip)
 
@@ -79,7 +85,9 @@ def create_driver(tv_name: str | None = None) -> TVDriver:
             from smartest_tv._engine.drivers.roku import RokuDriver
         except ImportError:
             raise ImportError(
-                "Roku driver requires aiohttp. Install with: pip install 'stv[roku]'"
+                "Roku driver requires aiohttp.\n"
+                "  pipx inject stv aiohttp\n"
+                "  pip install 'stv[roku]'"
             )
         return RokuDriver(ip=ip)
 
